@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Sync</string>
+
+    <string name="sessions_deleted">sessions_deleted.json</string>
+    <string name="sessions_edited">sessions_edited.json</string>
+    <string name="sessions_initial">sessions_initial.json</string>
+
+    <string name="import_json">Import JSON</string>
+    <string name="db_dump">DB Dump</string>
+    <string name="import_status">Import Status</string>
+    <string name="updated">Updated</string>
+    <string name="removed">Removed</string>
+    <string name="inserted">Inserted</string>
+</resources>

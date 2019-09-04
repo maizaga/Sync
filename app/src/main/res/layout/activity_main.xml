@@ -14,36 +14,56 @@
         android:layout_height="match_parent"
         tools:context=".activities.MainActivity">
 
-        <RadioGroup
-            android:id="@+id/fileSelector"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/syncRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:onCheckedChanged="@{(radioGroup, id) -> viewModel.onCheckedChange(radioGroup, id)}"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/initial"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sessions_initial"
-                android:checked="true"
-                app:buttonTint="@color/colorAccent" />
+<!--        <RadioGroup-->
+<!--            android:id="@+id/fileSelector"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="16dp"-->
+<!--            android:onCheckedChanged="@{(radioGroup, id) -> viewModel.onCheckedChange(radioGroup, id)}"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
 
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/edited"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sessions_edited"
-                app:buttonTint="@color/colorAccent" />
+<!--            <androidx.appcompat.widget.AppCompatRadioButton-->
+<!--                android:id="@+id/export"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:checked="true"-->
+<!--                android:text="Export"-->
+<!--                app:buttonTint="@color/colorAccent" />-->
 
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/deleted"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sessions_deleted"
-                app:buttonTint="@color/colorAccent" />
-        </RadioGroup>
+<!--            <androidx.appcompat.widget.AppCompatRadioButton-->
+<!--                android:id="@+id/initial"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:checked="true"-->
+<!--                android:text="@string/sessions_initial"-->
+<!--                app:buttonTint="@color/colorAccent" />-->
+
+<!--            <androidx.appcompat.widget.AppCompatRadioButton-->
+<!--                android:id="@+id/edited"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/sessions_edited"-->
+<!--                app:buttonTint="@color/colorAccent" />-->
+
+<!--            <androidx.appcompat.widget.AppCompatRadioButton-->
+<!--                android:id="@+id/deleted"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/sessions_deleted"-->
+<!--                app:buttonTint="@color/colorAccent" />-->
+<!--        </RadioGroup>-->
 
         <Button
             android:id="@+id/importButton"
@@ -52,7 +72,7 @@
             android:layout_margin="16dp"
             android:onClick="@{() -> viewModel.importJson()}"
             android:text="@string/import_json"
-            app:layout_constraintTop_toBottomOf="@id/fileSelector" />
+            app:layout_constraintTop_toBottomOf="@id/syncRv" />
 
         <Button
             android:id="@+id/dumpButton"

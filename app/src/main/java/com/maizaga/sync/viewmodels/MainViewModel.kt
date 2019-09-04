@@ -1,13 +1,10 @@
 package com.maizaga.sync.viewmodels
 
-import android.os.Debug
 import android.util.Log
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
-import com.maizaga.sync.R
+import com.maizaga.sync.adapters.MainAdapter
 import com.maizaga.sync.data.JsonRepository
 import com.maizaga.sync.data.PersonJson
 import com.maizaga.sync.data.SessionDao
@@ -33,26 +30,22 @@ class MainViewModel @Inject constructor(
 
     private val disposables = CompositeDisposable()
 
-    var selectedJson = 0
-    private val jsonResources = arrayListOf(R.raw.sessions_initial, R.raw.sessions_edited,
-        R.raw.sessions_deleted)
-
     val updated = ObservableField<String>("0 Updated")
     val removed = ObservableField<String>("0 Removed")
     val inserted = ObservableField<String>("0 Inserted")
     val progress = ObservableBoolean(false)
 
+    lateinit var adapter: MainAdapter
+
     fun importJson() {
-        Debug.startMethodTracing()
-        disposables.add(jsonRepository.readJson(jsonResources[selectedJson])
+        disposables.add(jsonRepository.readJson(adapter.selectedJsonResource)
             .doOnSubscribe { progress.set(true) }
             .subscribe({ sessionJsonReader: SessionJsonReader? ->
                 // Computation thread
                 sessionJsonReader?.let { startSync(it) }
             }, { t: Throwable ->  // onError
-                Debug.stopMethodTracing()
                 progress.set(false)
-                Log.e(tag, "Something went wrong: ${t.localizedMessage}")
+                Log.e(tag, "Something went wrong: ${t.printStackTrace()}")
             }))
     }
 
@@ -64,11 +57,9 @@ class MainViewModel @Inject constructor(
                 removed.set("${counters[REMOVED]} Removed")
                 inserted.set("${counters[INSERTED]} Inserted")
                 progress.set(false)
-                Debug.stopMethodTracing()
             }, { t ->
-                Debug.stopMethodTracing()
                 progress.set(false)
-                Log.e(tag, "Something went wrong: ${t.localizedMessage}")
+                Log.e(tag, "Something went wrong: ${t.printStackTrace()}")
             }))
     }
 
@@ -158,15 +149,8 @@ class MainViewModel @Inject constructor(
                 Log.d(tag, output)
                 progress.set(false)
             }, { t ->
-                Log.e(tag, "Something went wrong: ${t.localizedMessage}")
+                Log.e(tag, "Something went wrong: ${t.printStackTrace()}")
             }))
-    }
-
-    fun onCheckedChange(radioGroup: RadioGroup, id: Int) {
-        val child = radioGroup.findViewById<RadioButton>(id)
-        val index = radioGroup.indexOfChild(child)
-
-        selectedJson = index
     }
 
     override fun onCleared() {

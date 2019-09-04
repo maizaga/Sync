@@ -1,12 +1,12 @@
 package com.maizaga.sync.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.maizaga.sync.R
 import com.maizaga.sync.ViewModelFactory
+import com.maizaga.sync.adapters.MainAdapter
 import com.maizaga.sync.databinding.ActivityMainBinding
 import com.maizaga.sync.viewmodels.MainViewModel
 import dagger.android.AndroidInjection
@@ -28,5 +28,8 @@ class MainActivity : AppCompatActivity() {
             .of(this, viewModelFactory)
             .get(MainViewModel::class.java)
         binding.viewModel = viewModel
+
+        viewModel.adapter = MainAdapter(this)
+        binding.syncRv.adapter = viewModel.adapter
     }
 }

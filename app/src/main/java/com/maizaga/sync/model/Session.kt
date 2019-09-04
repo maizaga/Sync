@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.maizaga.sync.data.SessionJson
-import java.util.Date
+import java.util.*
 
 /**
  *
@@ -13,7 +13,7 @@ import java.util.Date
 @Entity data class Session(
     @PrimaryKey
     @ColumnInfo(name = "id") val id: String,
-    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "description") val description: String?,
     @ColumnInfo(name = "start") val start: Date,
     @ColumnInfo(name = "end") val end: Date
@@ -21,6 +21,10 @@ import java.util.Date
     override fun equals(other: Any?): Boolean {
         return (other is Session) && id == other.id && name == other.name &&
                 description == other.description && start == other.start && end == other.end
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
     }
 
     override fun toString(): String = "id: $id, name: $name, description: $description, start: " +

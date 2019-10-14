@@ -1,5 +1,4 @@
-# Sync
-# POC
+# POC: Sync schedule
 
 # General description of the solution
 In an architectural level, MVVM pattern was chosen. Main reason for this scope, was to be able to make a unit test using JUnit, without the need of an instrumentation test. It is also the pattern I'm most comfortable with, for bigger projects. It includes data binding and lifecycle aware components, if you rotate the screen the project will still work as expected. Also dagger2 was used to implement dependency injection, very useful for testing and code readability.<br>
